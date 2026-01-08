@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="TRIX Score Tracker - Mobile App">
+    <meta name="theme-color" content="#990000">
+    <title>TRIX Score Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Screen 1: New Game -->
+    <div id="screen-new-game" class="screen active">
+        <div class="app-bar">
+            <button class="back-btn" id="back-new-game" style="display: none;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <div class="app-bar-title">TRIX</div>
+            <button class="action-btn" id="start-btn">START</button>
+        </div>
+        
+        <div class="content">
+            <div class="player-inputs">
+                <div class="input-row">
+                    <div class="input-group">
+                        <input type="text" id="player1" placeholder="Player One" class="player-input">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="player2" placeholder="Player Two" class="player-input">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <input type="text" id="player3" placeholder="Player Three" class="player-input">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="player4" placeholder="Player Four" class="player-input">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="options">
+                <div class="option">
+                    <label>Doubling</label>
+                    <div class="toggle" id="doubling-toggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Game View -->
+    <div id="screen-game" class="screen">
+        <div class="app-bar">
+            <button class="back-btn" id="back-game">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <div class="app-bar-title">
+                <svg class="crown-icon" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                </svg>
+            </div>
+            <div class="app-bar-actions">
+                <button class="icon-btn" id="duplicate-btn" title="Duplicate">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="trash-btn" title="Delete">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="game-header">
+                <div class="kingdom-header" id="kingdom-header"></div>
+                <div class="player-names-row" id="player-names-row"></div>
+                <div class="totals-row" id="totals-row"></div>
+            </div>
+            
+            <div class="hand-modes" id="hand-modes"></div>
+            
+            <div class="rounds-list" id="rounds-list"></div>
+        </div>
+        
+        <button class="fab" id="fab-new-hand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Screen 3: Round Entry (PLUS or MINUS) -->
+    <div id="screen-complex" class="screen">
+        <div class="app-bar">
+            <button class="back-btn" id="back-complex">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <div class="app-bar-title" id="complex-title">Kingdom 1 – PLUS</div>
+            <button class="action-btn save-btn" id="save-hand-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="category-icons">
+            <div class="category-icon" data-category="king">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#990000">
+                    <text x="12" y="18" font-size="20" text-anchor="middle" fill="#990000">K</text>
+                    <text x="12" y="22" font-size="12" text-anchor="middle" fill="#990000">♥</text>
+                </svg>
+            </div>
+            <div class="category-icon" data-category="queens">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#990000">
+                    <text x="12" y="18" font-size="16" text-anchor="middle" fill="#990000">Q</text>
+                </svg>
+            </div>
+            <div class="category-icon" data-category="diamonds">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#990000">
+                    <text x="12" y="18" font-size="16" text-anchor="middle" fill="#990000">♦</text>
+                </svg>
+            </div>
+            <div class="category-icon" data-category="collections">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#990000">
+                    <rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="#990000" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div style="padding: 8px 16px; text-align: center;">
+                <button class="btn-secondary" id="reset-btn" style="padding: 8px 16px; font-size: 14px;">RESET</button>
+            </div>
+            <div class="round-entry-card" id="round-entry-card">
+                <!-- Category rows will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="player-tabs" id="player-tabs"></div>
+    </div>
+
+    <!-- Modal: Save/Discard -->
+    <div id="save-modal" class="modal">
+        <div class="modal-content">
+            <h3>Save Round</h3>
+            <p>You have unsaved changes. Save this round?</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="discard-btn">Discard</button>
+                <button class="btn-primary" id="save-round-btn">Save Round</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Confirm Delete -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <h3>Delete Match</h3>
+            <p>Are you sure you want to delete this match? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-delete-btn">Cancel</button>
+                <button class="btn-danger" id="confirm-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Mode Selection -->
+    <div id="mode-modal" class="modal">
+        <div class="modal-content">
+            <h3>Select Hand Mode</h3>
+            <p>Choose which mode to play for this kingdom:</p>
+            <div class="modal-actions" style="flex-direction: column; gap: 12px;">
+                <button class="btn-primary" id="select-plus-btn" style="width: 100%; background-color: var(--green);">PLUS</button>
+                <button class="btn-danger" id="select-minus-btn" style="width: 100%; background-color: var(--red);">MINUS</button>
+                <button class="btn-secondary" id="cancel-mode-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Sheet: Round Actions -->
+    <div id="round-actions" class="action-sheet">
+        <div class="action-sheet-content">
+            <button class="action-item" id="edit-round-btn">Edit</button>
+            <button class="action-item" id="delete-round-btn">Delete</button>
+            <button class="action-item cancel" id="cancel-actions-btn">Cancel</button>
+        </div>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="scoring.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
